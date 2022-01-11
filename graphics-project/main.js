@@ -77,7 +77,7 @@ class Character{
   
 }
 
-class Island {
+class Island1 {
   constructor() {
     loader.load("assets/island/scene.gltf", (gltf) => {
       scene.add(gltf.scene)
@@ -85,10 +85,31 @@ class Island {
       gltf.scene.scale.set(30,30,30)
       gltf.scene.rotation.y = -2
 
-      this.island = gltf.scene;
+      this.island1 = gltf.scene;
       
     })
 
+  }
+}
+
+class Island2 {
+  constructor() {
+    loader.load("assets/island/scene.gltf", (gltf) => {
+      scene.add(gltf.scene)
+      gltf.scene.position.set(-700,13,-1000)
+      gltf.scene.scale.set(30,30,30)
+      gltf.scene.rotation.y = -2
+
+      this.island2 = gltf.scene;
+      
+    })
+
+  }
+
+  update(){
+    if(this.island2){
+      this.island2.rotation.y += 0.1;
+    }
   }
 }
 
@@ -125,7 +146,8 @@ class Boat {
 
 
 const boat = new Boat();
-const island = new Island();
+const island1 = new Island1();
+const island2 = new Island2();
 
 class Trash {
   constructor(_scene){
@@ -271,19 +293,19 @@ async function init() {
   window.addEventListener( 'resize', onWindowResize );
 
   window.addEventListener( 'keydown', function(e){
-    if (e.key == "ArrowUp"){
+    if (e.key == "w"){
       boat.speed.vel = 1;
     }
     
-    if (e.key == "ArrowDown"){
+    if (e.key == "s"){
       boat.speed.vel = -1;
     }
 
-    if (e.key == "ArrowRight"){
+    if (e.key == "d"){
       boat.speed.rot = -0.05;
     }
 
-    if (e.key == "ArrowLeft"){
+    if (e.key == "a"){
       boat.speed.rot = 0.05;
     }
   })
@@ -330,6 +352,7 @@ function animate() {
   requestAnimationFrame( animate );
   render();
   boat.update();
+  island2.update();
   checkCollisions();
 
 }
