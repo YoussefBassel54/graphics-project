@@ -12,6 +12,9 @@ import {FBXLoader} from 'three/examples/jsm/loaders/FBXLoader.js';
 let camera, scene, renderer;
 let controls, water, sun;
 
+let trashes = [];
+const TRASH_COUNT = 50;
+
 const loader = new GLTFLoader();
 const anime = new FBXLoader();
 
@@ -161,13 +164,7 @@ class Trash {
   }
 }
 
-async function loadModel(url){
-  return new Promise((resolve, reject) => {
-    loader.load(url, (gltf) => {
-      resolve(gltf.scene);
-    })
-  })
-}
+
 
 let boatModel = null;
 async function createTrash(){
@@ -179,8 +176,13 @@ async function createTrash(){
 
 
 
-let trashes = [];
-const TRASH_COUNT = 50;
+async function loadModel(url){
+  return new Promise((resolve, reject) => {
+    loader.load(url, (gltf) => {
+      resolve(gltf.scene);
+    })
+  })
+}
 
 init();
 animate();
